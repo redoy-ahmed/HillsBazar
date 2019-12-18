@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <meta-data
             android:name="AA_DB_NAME"
             android:value="MyDatabase.db" />
@@ -25,11 +26,8 @@
             android:value="5" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.beingdev.magicprint.db.Notification" />
-        <!--
-        Add the following to your AndroidManifest.xml to prevent the launching of your main Activity
-        if you are calling startActivity above.
-        -->
+            android:value="com.hillsbazar.db.Notification" />
+
         <meta-data
             android:name="com.onesignal.NotificationOpened.DEFAULT"
             android:value="DISABLE" />
@@ -44,69 +42,90 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".RegisterActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name="MainActivity"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name="HelpCenter"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="Profile"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="Cart"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="UpdateData"
             android:theme="@style/WhiteTheme"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".ForgotPasswordActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name="NotificationActivity"
             android:theme="@style/WhiteTheme" />
+
         <activity
-            android:name="prodcutscategory.Cards"
+            android:name=".prodcutscategory.Cards"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="IndividualProduct"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="Wishlist"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="OrderDetails"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="OrderPlaced"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="prodcutscategory.Tshirts"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="prodcutscategory.Bags"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="prodcutscategory.Calendars"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="prodcutscategory.Keychains"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name="prodcutscategory.Stationary"
             android:theme="@style/WhiteTheme" />
-        <activity android:name="WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name="WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

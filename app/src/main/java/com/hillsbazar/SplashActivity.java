@@ -24,12 +24,12 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        session =new UserSession(SplashActivity.this);
+        session = new UserSession(SplashActivity.this);
 
-      Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
 
-      TextView appname= findViewById(R.id.appname);
-      appname.setTypeface(typeface);
+        TextView appname = findViewById(R.id.appname);
+        appname.setTypeface(typeface);
 
         YoYo.with(Techniques.Bounce)
                 .duration(7000)
@@ -39,20 +39,20 @@ public class SplashActivity extends Activity {
                 .duration(5000)
                 .playOn(findViewById(R.id.appname));
 
-            new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
 
             /*
              * Showing splash screen with a timer. This will be useful when you
              * want to show case your app logo / company
              */
 
-                @Override
-                public void run() {
-                    // This method will be executed once the timer is over
-                    // Start your app main activity
-                    startActivity(new Intent(SplashActivity.this,WelcomeActivity.class));
-                    finish();
-                }
-            }, SPLASH_TIME_OUT);
-        }
+            @Override
+            public void run() {
+                // This method will be executed once the timer is over
+                // Start your app main activity
+                startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
     }
+}

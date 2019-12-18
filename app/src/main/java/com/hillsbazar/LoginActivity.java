@@ -99,6 +99,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     session.createLoginSession(sessionname, sessionemail, sessionmobile, sessionphoto);
 
+                    progressDialog.dismiss();
+
                     Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(loginSuccess);
                     finish();
