@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.color.gradient_background)
+                .withHeaderBackground(R.drawable.gradient_background)
                 .addProfiles(profile)
                 .withCompactStyle(true)
                 .build();
