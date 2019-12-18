@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //if user forgets password
         forgotpass = findViewById(R.id.forgot_pass);
-        forgotpass.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, ForgotPassword.class)));
+        forgotpass.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class)));
 
 
         //Validating login details

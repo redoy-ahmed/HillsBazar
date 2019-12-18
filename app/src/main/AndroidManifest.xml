@@ -69,7 +69,7 @@
             android:theme="@style/WhiteTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="ForgotPassword"
+            android:name=".ForgotPasswordActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity

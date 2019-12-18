@@ -11,7 +11,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,21 +21,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 import com.google.android.material.snackbar.Snackbar;
 import com.hillsbazar.networksync.CheckInternetConnection;
-import com.hillsbazar.networksync.RegisterRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -49,7 +43,7 @@ import es.dmoral.toasty.Toasty;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText edtname, edtemail, edtpass, edtcnfpass, edtnumber;
-    private String check,name,email,password,mobile,profile;
+    private String check, name, email, password, mobile, profile;
     CircleImageView image;
     ImageView upload;
     RequestQueue requestQueue;
@@ -69,8 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
 
-        upload=findViewById(R.id.uploadpic);
-        image=findViewById(R.id.profilepic);
+        upload = findViewById(R.id.uploadpic);
+        image = findViewById(R.id.profilepic);
         edtname = findViewById(R.id.name);
         edtemail = findViewById(R.id.email);
         edtpass = findViewById(R.id.password);
@@ -87,146 +81,123 @@ public class RegisterActivity extends AppCompatActivity {
 
         //validate user details and register user
 
-        Button button=findViewById(R.id.register);
+        Button button = findViewById(R.id.register);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        button.setOnClickListener(view -> {
 
-                //TODO AFTER VALDATION
-                if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()){
+            //TODO AFTER VALDATION
+            if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()) {
 
-                    name=edtname.getText().toString();
-                    email=edtemail.getText().toString();
-                    password=edtcnfpass.getText().toString();
-                    mobile=edtnumber.getText().toString();
+                name = edtname.getText().toString();
+                email = edtemail.getText().toString();
+                password = edtcnfpass.getText().toString();
+                mobile = edtnumber.getText().toString();
 
 
-                    final KProgressHUD progressDialog=  KProgressHUD.create(RegisterActivity.this)
-                            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                            .setLabel("Please wait")
-                            .setCancellable(false)
-                            .setAnimationSpeed(2)
-                            .setDimAmount(0.5f)
-                            .show();
+                final KProgressHUD progressDialog = KProgressHUD.create(RegisterActivity.this)
+                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                        .setLabel("Please wait")
+                        .setCancellable(false)
+                        .setAnimationSpeed(2)
+                        .setDimAmount(0.5f)
+                        .show();
 
 
-                    //Validation Success
-                    convertBitmapToString(profilePicture);
-                    RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, profile, new Response.Listener<String>() {
+                //Validation Success
+                convertBitmapToString(profilePicture);
+                /*RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, profile, response -> {
+                    progressDialog.dismiss();
+
+                    Log.e("Rsponse from server", response);
+
+                    try {
+                        if (new JSONObject(response).getBoolean("success")) {
+
+                            Toasty.success(RegisterActivity.this, "Registered Succesfully", Toast.LENGTH_SHORT, true).show();
+
+                            sendRegistrationEmail(name, email);
+
+
+                        } else
+                            Toasty.error(RegisterActivity.this, "User Already Exist", Toast.LENGTH_SHORT, true).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toasty.error(RegisterActivity.this, "Failed to RegisterActivity", Toast.LENGTH_LONG, true).show();
+                    }
+                });
+                requestQueue.add(registerRequest);*/
+            }
+        });
+
+        final TextView loginuser = findViewById(R.id.login_now);
+        loginuser.setOnClickListener(view -> {
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            finish();
+        });
+
+        final TextView forgotpass = findViewById(R.id.forgot_pass);
+        forgotpass.setOnClickListener(view -> {
+            startActivity(new Intent(RegisterActivity.this, ForgotPasswordActivity.class));
+            finish();
+        });
+
+
+        upload.setOnClickListener(view -> {
+
+            Dexter.withActivity(RegisterActivity.this)
+                    .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .withListener(new MultiplePermissionsListener() {
                         @Override
-                        public void onResponse(String response) {
-                            progressDialog.dismiss();
+                        public void onPermissionsChecked(MultiplePermissionsReport report) {
+                            // check if all permissions are granted
+                            if (report.areAllPermissionsGranted()) {
+                                // do you work now
+                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                intent.setType("image/*");
+                                startActivityForResult(intent, 1000);
+                            }
 
-                            Log.e("Rsponse from server", response);
-
-                            try {
-                                if (new JSONObject(response).getBoolean("success")) {
-
-                                    Toasty.success(RegisterActivity.this,"Registered Succesfully",Toast.LENGTH_SHORT,true).show();
-
-                                    sendRegistrationEmail(name,email);
-
-
-                                } else
-                                    Toasty.error(RegisterActivity.this,"User Already Exist",Toast.LENGTH_SHORT,true).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toasty.error(RegisterActivity.this,"Failed to RegisterActivity",Toast.LENGTH_LONG,true).show();
+                            // check for permanent denial of any permission
+                            if (report.isAnyPermissionPermanentlyDenied()) {
+                                // permission is denied permenantly, navigate user to app settings
+                                Snackbar.make(view, "Kindly grant Required Permission", Snackbar.LENGTH_LONG)
+                                        .setAction("Allow", null).show();
                             }
                         }
-                    });
-                    requestQueue.add(registerRequest);
-                }
-            }
-        });
 
-        //Take already registered user to login page
-
-        final TextView loginuser=findViewById(R.id.login_now);
-        loginuser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-                finish();
-            }
-        });
-
-        //take user to reset password
-
-        final TextView forgotpass=findViewById(R.id.forgot_pass);
-        forgotpass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this,ForgotPassword.class));
-                finish();
-            }
-        });
+                        @Override
+                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                            token.continuePermissionRequest();
+                        }
+                    })
+                    .onSameThread()
+                    .check();
 
 
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-
-                Dexter.withActivity(RegisterActivity.this)
-                        .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .withListener(new MultiplePermissionsListener() {
-                            @Override
-                            public void onPermissionsChecked(MultiplePermissionsReport report) {
-                                // check if all permissions are granted
-                                if (report.areAllPermissionsGranted()) {
-                                    // do you work now
-                                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                    intent.setType("image/*");
-                                    startActivityForResult(intent, 1000);
-                                }
-
-                                // check for permanent denial of any permission
-                                if (report.isAnyPermissionPermanentlyDenied()) {
-                                    // permission is denied permenantly, navigate user to app settings
-                                    Snackbar.make(view, "Kindly grant Required Permission", Snackbar.LENGTH_LONG)
-                                            .setAction("Allow", null).show();
-                                }
-                            }
-
-                            @Override
-                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                                token.continuePermissionRequest();
-                            }
-                        })
-                        .onSameThread()
-                        .check();
-
-
-
-                //result will be available in onActivityResult which is overridden
-            }
+            //result will be available in onActivityResult which is overridden
         });
     }
 
     private void sendRegistrationEmail(final String name, final String emails) {
 
 
-                BackgroundMail.newBuilder(RegisterActivity.this)
-                        .withSendingMessage("Sending Welcome Greetings to Your Email !")
-                        .withSendingMessageSuccess("Kindly Check Your Email now !")
-                        .withSendingMessageError("Failed to send password ! Try Again !")
-                        .withUsername("beingdevofficial@gmail.com")
-                        .withPassword("Singh@30")
-                        .withMailto(emails)
-                        .withType(BackgroundMail.TYPE_PLAIN)
-                        .withSubject("Greetings from Magic Print")
-                        .withBody("Hello Mr/Miss, "+ name + "\n " + getString(R.string.registermail1))
-                        .send();
+        BackgroundMail.newBuilder(RegisterActivity.this)
+                .withSendingMessage("Sending Welcome Greetings to Your Email !")
+                .withSendingMessageSuccess("Kindly Check Your Email now !")
+                .withSendingMessageError("Failed to send password ! Try Again !")
+                .withUsername("beingdevofficial@gmail.com")
+                .withPassword("Singh@30")
+                .withMailto(emails)
+                .withType(BackgroundMail.TYPE_PLAIN)
+                .withSubject("Greetings from Magic Print")
+                .withBody("Hello Mr/Miss, " + name + "\n " + getString(R.string.registermail1))
+                .send();
 
     }
 
     private void convertBitmapToString(Bitmap profilePicture) {
-            /*
-                Base64 encoding requires a byte array, the bitmap image cannot be converted directly into a byte array.
-                so first convert the bitmap image into a ByteArrayOutputStream and then convert this stream into a byte array.
-            */
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         profilePicture.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
         byte[] array = byteArrayOutputStream.toByteArray();
@@ -253,17 +224,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean validateProfile() {
         if (!IMAGE_STATUS)
-            Toasty.info(RegisterActivity.this,"Select A Profile Picture",Toast.LENGTH_LONG).show();
+            Toasty.info(RegisterActivity.this, "Select A Profile Picture", Toast.LENGTH_LONG).show();
         return IMAGE_STATUS;
     }
 
     private boolean validateNumber() {
 
         check = edtnumber.getText().toString();
-        Log.e("inside number",check.length()+" ");
-        if (check.length()>10) {
-           return false;
-        }else if(check.length()<10){
+        Log.e("inside number", check.length() + " ");
+        if (check.length() > 10) {
+            return false;
+        } else if (check.length() < 10) {
             return false;
         }
         return true;
@@ -278,11 +249,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean validatePass() {
 
-
         check = edtpass.getText().toString();
 
         if (check.length() < 4 || check.length() > 20) {
-           return false;
+            return false;
         } else if (!check.matches("^[A-za-z0-9@]+")) {
             return false;
         }
@@ -298,7 +268,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (!check.matches("^[A-za-z0-9.@]+")) {
             return false;
         } else if (!check.contains("@") || !check.contains(".")) {
-                return false;
+            return false;
         }
 
         return true;
@@ -427,9 +397,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length()>10) {
+            if (check.length() > 10) {
                 edtnumber.setError("Number cannot be grated than 10 digits");
-            }else if(check.length()<10){
+            } else if (check.length() < 10) {
                 edtnumber.setError("Number should be 10 digits");
             }
         }
@@ -444,7 +414,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop () {
+    protected void onStop() {
         super.onStop();
     }
 }
