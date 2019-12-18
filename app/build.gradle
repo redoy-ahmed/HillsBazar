@@ -70,9 +70,6 @@ dependencies {
 
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
 
-    implementation 'com.mikepenz:aboutlibraries:7.0.4'
-
-    implementation 'com.mikepenz:materialdrawer:6.0.9'
 
     implementation 'com.squareup.picasso:picasso:2.3.2'
 
@@ -87,8 +84,6 @@ dependencies {
     implementation 'com.webianks.library:easy-feedback:1.0.2'
 
     implementation 'com.geniusforapp.fancydialog:FancyDialog:0.1.4'
-
-    implementation 'com.mikepenz:crossfadedrawerlayout:1.0.1@aar'
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
@@ -129,9 +124,12 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 
-    implementation 'com.mikepenz:iconics-views:4.0.0-b1'
-    implementation "com.mikepenz:iconics-core:4.0.0-b1"
-    implementation 'com.mikepenz:meteocons-typeface:1.1.0.5@aar'
+
+    implementation 'com.mikepenz:aboutlibraries:6.2.0'
+    implementation 'com.mikepenz:materialdrawer:6.1.2'
+    implementation 'com.mikepenz:crossfadedrawerlayout:1.1.0'
+    implementation 'com.mikepenz:iconics-core:3.2.5'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

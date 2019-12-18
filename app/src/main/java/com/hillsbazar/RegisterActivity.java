@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.register);
 
-        button.setOnClickListener(view -> {
+        /*button.setOnClickListener(view -> {
 
             //TODO AFTER VALDATION
             if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()) {
@@ -105,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 //Validation Success
                 convertBitmapToString(profilePicture);
-                /*RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, profile, response -> {
+                *//*RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, profile, response -> {
                     progressDialog.dismiss();
 
                     Log.e("Rsponse from server", response);
@@ -125,9 +125,9 @@ public class RegisterActivity extends AppCompatActivity {
                         Toasty.error(RegisterActivity.this, "Failed to RegisterActivity", Toast.LENGTH_LONG, true).show();
                     }
                 });
-                requestQueue.add(registerRequest);*/
+                requestQueue.add(registerRequest);*//*
             }
-        });
+        });*/
 
         final TextView loginuser = findViewById(R.id.login_now);
         loginuser.setOnClickListener(view -> {
@@ -279,7 +279,6 @@ public class RegisterActivity extends AppCompatActivity {
         check = edtname.getText().toString();
 
         return !(check.length() < 4 || check.length() > 20);
-
     }
 
     TextWatcher nameWatcher = new TextWatcher() {

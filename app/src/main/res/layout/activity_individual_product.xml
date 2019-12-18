@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/activity_item_details"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_item_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context="com.hillsbazar.IndividualProduct"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context="com.hillsbazar.IndividualProduct">
 
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbarwrap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="fill_parent"
             android:layout_height="58dp"
@@ -25,38 +25,40 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Product"/>
+                android:text="Product"
+                android:textSize="20sp" />
 
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="right"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/notification"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="15dp"
-                    android:onClick="Notifications"/>
+                    android:onClick="Notifications"
+                    android:src="@drawable/notification" />
 
 
             </LinearLayout>
 
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView android:id="@+id/scrollbar"
+    <ScrollView
+        android:id="@+id/scrollbar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9.5"
-        android:scrollbars="none"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,146 +68,161 @@
                 android:id="@+id/productimage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/drawerback"/>
+                android:src="@drawable/drawerback" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/productname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Denim Shirt"
-                    android:textSize="16dp"
-                    android:textColor="@color/gen_black"/>
+                    android:textColor="@color/gen_black"
+                    android:textSize="16dp" />
+
                 <TextView
                     android:id="@+id/productprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Rs. 1,979"
-                    android:textSize="20dp"
                     android:textColor="@color/gen_black"
-                    />
-                <TextView android:layout_width="wrap_content"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:text="FREE Delivery"
-                    android:textSize="12dp"
-                    android:layout_marginTop="4dp"/>
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="16dp">
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
                     android:text="Quantity: "
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/decrementQuantity"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
                     android:backgroundTint="#eeeeee"
+                    android:onClick="decrement"
                     android:text="-"
-                    android:onClick="decrement"/>
+                    android:textColor="@android:color/black" />
 
                 <EditText
                     android:id="@+id/quantityProductPage"
                     android:layout_width="40dp"
-                    android:gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
+                    android:gravity="center"
+                    android:inputType="number"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:inputType="number"
-                    tools:text="1"/>
+                    tools:text="1" />
 
                 <Button
                     android:id="@+id/incrementQuantity"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
                     android:backgroundTint="#eeeeee"
+                    android:onClick="increment"
                     android:text="+"
-                    android:onClick="increment"/>
+                    android:textColor="@android:color/black" />
 
             </LinearLayout>
 
-            <View android:layout_width="match_parent"
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/view_width_small"
-                android:background="@color/grey_light"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:background="@color/grey_light" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:orientation="horizontal"
                 android:layout_marginTop="8dp"
+                android:orientation="horizontal"
                 android:weightSum="3">
 
-                <LinearLayout android:id="@+id/layout_action1"
+                <LinearLayout
+                    android:id="@+id/layout_action1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:onClick="shareProduct"
                     android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:onClick="shareProduct">
+                    android:weightSum="2">
+
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/share"/>
-                    <TextView android:id="@+id/text_action1"
+                        android:src="@drawable/share" />
+
+                    <TextView
+                        android:id="@+id/text_action1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:gravity="left"
                         android:text="Share"
-                        android:textSize="12dp"
                         android:textColor="@color/gen_black"
-                        android:gravity="left"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
 
-                <View android:layout_width="@dimen/view_width_small"
+                <View
+                    android:layout_width="@dimen/view_width_small"
                     android:layout_height="match_parent"
-                    android:background="@color/grey_light"/>
+                    android:background="@color/grey_light" />
 
-                <LinearLayout android:id="@+id/layout_action2"
+                <LinearLayout
+                    android:id="@+id/layout_action2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:onClick="similarProduct"
                     android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:onClick="similarProduct">
-                    <ImageView android:layout_width="30dp"
+                    android:weightSum="2">
+
+                    <ImageView
+                        android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/similar"/>
-                    <TextView android:id="@+id/text_action2"
+                        android:src="@drawable/similar" />
+
+                    <TextView
+                        android:id="@+id/text_action2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:gravity="left"
                         android:text="Similar"
-                        android:textSize="12dp"
                         android:textColor="@color/gen_black"
-                        android:gravity="left"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
 
-                <View android:layout_width="@dimen/view_width_small"
+                <View
+                    android:layout_width="@dimen/view_width_small"
                     android:layout_height="match_parent"
-                    android:background="@color/grey_light"/>
+                    android:background="@color/grey_light" />
 
                 <LinearLayout
                     android:id="@+id/layout_action3"
@@ -213,115 +230,121 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:onClick="addToWishList"
                     android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:onClick="addToWishList">
+                    android:weightSum="2">
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/add_to_wishlist"
                         android:layout_width="40dp"
-                        app:lottie_fileName="heart.json"
                         android:layout_height="40dp"
                         android:foregroundGravity="center"
                         android:src="@drawable/cartempty"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        app:lottie_fileName="heart.json" />
 
-                    <TextView android:id="@+id/text_action3"
+                    <TextView
+                        android:id="@+id/text_action3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:gravity="left"
                         android:text="Wishlist"
-                        android:textSize="12dp"
                         android:textColor="@color/gen_black"
-                        android:gravity="left"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
             </LinearLayout>
-            <View android:layout_width="match_parent"
+
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/view_width_small"
-                android:background="@color/grey_light"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:background="@color/grey_light" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:orientation="vertical">
-                <TextView android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Details"
-                    android:textSize="16dp"
-                    android:textColor="@color/gen_black"/>
+                    android:textColor="@color/gen_black"
+                    android:textSize="16dp" />
+
                 <TextView
                     android:id="@+id/productdesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="\u2022 Regular fit, full sleeve"
-                    android:textSize="12dp"
-                    android:textColor="@color/gen_black"/>
+                    android:textColor="@color/gen_black"
+                    android:textSize="12dp" />
 
             </LinearLayout>
 
-            <View android:layout_width="match_parent"
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/view_width_small"
-                android:background="@color/grey_light"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="2dp"
+                android:background="@color/grey_light" />
 
-            <TextView android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="Your Custom Message"
-                android:textSize="16dp"
                 android:textColor="@color/gen_black"
-                android:layout_margin="10dp"/>
+                android:textSize="16dp" />
 
-            <View android:layout_width="match_parent"
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/view_width_small"
-                android:background="@color/grey_light"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="2dp"
+                android:background="@color/grey_light" />
 
             <com.github.florent37.materialtextfield.MaterialTextField
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mtf_labelColor="#34495e"
                 app:mtf_image="@drawable/headertext"
-                >
+                app:mtf_labelColor="#34495e">
 
                 <EditText
                     android:id="@+id/customheader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Header"
-                    android:textColor="#424242"
-                    android:textSize="15sp"
                     android:inputType="textMultiLine"
                     android:maxLines="3"
                     android:minLines="2"
-                    android:scrollbars="vertical"/>
+                    android:scrollbars="vertical"
+                    android:textColor="#424242"
+                    android:textSize="15sp" />
 
             </com.github.florent37.materialtextfield.MaterialTextField>
 
             <com.github.florent37.materialtextfield.MaterialTextField
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mtf_labelColor="#34495e"
-                app:mtf_image="@drawable/bubble"
                 android:layout_marginBottom="30dp"
-                >
+                app:mtf_image="@drawable/bubble"
+                app:mtf_labelColor="#34495e">
 
                 <EditText
                     android:id="@+id/custommessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Content"
-                    android:textColor="#424242"
-                    android:textSize="15sp"
                     android:inputType="textMultiLine"
                     android:maxLines="10"
                     android:minLines="6"
                     android:scrollbars="vertical"
-                    />
+                    android:textColor="#424242"
+                    android:textSize="15sp" />
 
             </com.github.florent37.materialtextfield.MaterialTextField>
 
@@ -332,10 +355,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
-        android:orientation="horizontal"
-        android:weightSum="2"
+        android:background="@color/gen_black"
         android:elevation="30dp"
-        android:background="@color/gen_black">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <TextView
             android:id="@+id/add_to_cart"
@@ -343,12 +366,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/gen_white"
-            android:text="ADD TO CART"
-            android:textSize="14dp"
-            android:textColor="@color/gen_black"
-            android:textStyle="bold"
             android:gravity="center"
-            android:onClick="addToCart"/>
+            android:onClick="addToCart"
+            android:text="ADD TO CART"
+            android:textColor="@color/gen_black"
+            android:textSize="14dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/buy_now"
@@ -356,12 +379,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:text="BUY NOW"
-            android:textSize="14dp"
-            android:textColor="@color/gen_white"
-            android:textStyle="bold"
             android:gravity="center"
-            android:onClick="goToCart"/>
+            android:onClick="goToCart"
+            android:text="BUY NOW"
+            android:textColor="@color/gen_white"
+            android:textSize="14dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </LinearLayout>

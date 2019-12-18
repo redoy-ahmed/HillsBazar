@@ -28,6 +28,8 @@ import com.hillsbazar.usersession.UserSession;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.MiniDrawer;
@@ -208,12 +210,12 @@ public class MainActivity extends AppCompatActivity {
                 .withEmail(email)
                 .withIcon(photo);
 
-        /*AccountHeader headerResult = new AccountHeaderBuilder()
+        AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.gradient_background)
                 .addProfiles(profile)
                 .withCompactStyle(true)
-                .build();*/
+                .build();
 
         //Adding nav drawer items ------------------------------------------------------------------
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home).withIcon(R.drawable.home);
@@ -237,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .withHasStableIds(true)
                 .withDrawerLayout(R.layout.crossfade_drawer)
-                //.withAccountHeader(headerResult)
+                .withAccountHeader(headerResult)
                 .withDrawerWidthDp(72)
                 .withGenerateMiniDrawer(true)
                 .withTranslucentStatusBar(true)

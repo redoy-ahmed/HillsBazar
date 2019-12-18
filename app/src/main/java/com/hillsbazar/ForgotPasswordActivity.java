@@ -47,7 +47,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         back = findViewById(R.id.goback);
 
         requestQueue = Volley.newRequestQueue(ForgotPasswordActivity.this);
-        sendotp.setOnClickListener(view -> {
+        /*sendotp.setOnClickListener(view -> {
 
             getEmail = forgotpassemail.getText().toString();
 
@@ -59,7 +59,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     .setDimAmount(0.5f)
                     .show();
 
-            /*PasswordRequest passwordRequest = new PasswordRequest(getEmail, response -> {
+            PasswordRequest passwordRequest = new PasswordRequest(getEmail, response -> {
 
                 Log.e("values recieved" , response);
 
@@ -101,8 +101,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 else if (error instanceof NetworkError)
                     Toasty.error(ForgotPasswordActivity.this, "Bad Network Connection", Toast.LENGTH_SHORT).show();
             });
-            requestQueue.add(passwordRequest);*/
-        });
+            requestQueue.add(passwordRequest);
+        });*/
 
         back.setOnClickListener(view -> finish());
     }
