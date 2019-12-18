@@ -38,7 +38,6 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
@@ -248,82 +247,79 @@ public class MainActivity extends AppCompatActivity {
                 .addDrawerItems(
                         item1, item2, item3, item4, item5, new DividerDrawerItem(), item7, item8, item9, item10,new DividerDrawerItem(),item12,item13
                 )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
-                        switch (position) {
+                    switch (position) {
 
-                            case 1:
-                                if (result != null && result.isDrawerOpen()) {
-                                    result.closeDrawer();
-                                }
-                                break;
-                            case 2:
-                                startActivity(new Intent(MainActivity.this, Profile.class));
-                                break;
-                            case 3:
-                                startActivity(new Intent(MainActivity.this, Wishlist.class));
-                                break;
-                            case 4:
-                                startActivity(new Intent(MainActivity.this, Cart.class));
-                                break;
-                            case 5:
-                                session.logoutUser();
-                                finish();
-                                break;
+                        case 1:
+                            if (result != null && result.isDrawerOpen()) {
+                                result.closeDrawer();
+                            }
+                            break;
+                        case 2:
+                            startActivity(new Intent(MainActivity.this, Profile.class));
+                            break;
+                        case 3:
+                            startActivity(new Intent(MainActivity.this, Wishlist.class));
+                            break;
+                        case 4:
+                            startActivity(new Intent(MainActivity.this, Cart.class));
+                            break;
+                        case 5:
+                            session.logoutUser();
+                            finish();
+                            break;
 
-                            case 7:
-                                startActivity(new Intent(MainActivity.this, NotificationActivity.class));
-                                break;
+                        case 7:
+                            startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+                            break;
 
-                            case 8:
-                                new LibsBuilder()
-                                        .withFields(R.string.class.getFields())
-                                        .withActivityTitle(getString(R.string.about_activity_title))
-                                        .withAboutIconShown(true)
-                                        .withAboutAppName(getString(R.string.app_name))
-                                        .withAboutVersionShown(true)
-                                        .withLicenseShown(true)
-                                        .withAboutSpecial1(getString(R.string.domain))
-                                        .withAboutSpecial1Description(getString(R.string.website))
-                                        .withAboutSpecial2(getString(R.string.licence))
-                                        .withAboutSpecial2Description(getString(R.string.licencedesc))
-                                        .withAboutSpecial3(getString(R.string.changelog))
-                                        .withAboutSpecial3Description(getString(R.string.changes))
-                                        .withShowLoadingProgress(true)
-                                        .withAboutDescription(getString(R.string.about_activity_description))
-                                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                                        .start(MainActivity.this);
-                                break;
-                            case 9:
-                                new EasyFeedback.Builder(MainActivity.this)
-                                        .withEmail("beingdevofficial@gmail.com")
-                                        .withSystemInfo()
-                                        .build()
-                                        .start();
-                                break;
-                            case 10:
-                                startActivity(new Intent(MainActivity.this, HelpCenter.class));
-                                break;
-                            case 12:
-                                session.setFirstTimeLaunch(true);
-                                startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
-                                finish();
-                                break;
-                            case 13:
-                                if (result != null && result.isDrawerOpen()) {
-                                    result.closeDrawer();
-                                }
-                                tapview();
-                                break;
-                            default:
-                                Toast.makeText(MainActivity.this, "Default", Toast.LENGTH_LONG).show();
+                        case 8:
+                            new LibsBuilder()
+                                    .withFields(R.string.class.getFields())
+                                    .withActivityTitle(getString(R.string.about_activity_title))
+                                    .withAboutIconShown(true)
+                                    .withAboutAppName(getString(R.string.app_name))
+                                    .withAboutVersionShown(true)
+                                    .withLicenseShown(true)
+                                    .withAboutSpecial1(getString(R.string.domain))
+                                    .withAboutSpecial1Description(getString(R.string.website))
+                                    .withAboutSpecial2(getString(R.string.licence))
+                                    .withAboutSpecial2Description(getString(R.string.licencedesc))
+                                    .withAboutSpecial3(getString(R.string.changelog))
+                                    .withAboutSpecial3Description(getString(R.string.changes))
+                                    .withShowLoadingProgress(true)
+                                    .withAboutDescription(getString(R.string.about_activity_description))
+                                    .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                    .start(MainActivity.this);
+                            break;
+                        case 9:
+                            new EasyFeedback.Builder(MainActivity.this)
+                                    .withEmail("beingdevofficial@gmail.com")
+                                    .withSystemInfo()
+                                    .build()
+                                    .start();
+                            break;
+                        case 10:
+                            startActivity(new Intent(MainActivity.this, HelpCenter.class));
+                            break;
+                        case 12:
+                            session.setFirstTimeLaunch(true);
+                            startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+                            finish();
+                            break;
+                        case 13:
+                            if (result != null && result.isDrawerOpen()) {
+                                result.closeDrawer();
+                            }
+                            tapview();
+                            break;
+                        default:
+                            Toast.makeText(MainActivity.this, "Default", Toast.LENGTH_LONG).show();
 
-                        }
-
-                        return true;
                     }
+
+                    return true;
                 })
                 .build();
 
