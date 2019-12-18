@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private UserSession session;
     private HashMap<String, String> user;
     private String name, email, photo, mobile;
-    private String  first_time;
+    private String first_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
         //ImageSLider
         inflateImageSlider();
 
+        onClickListeners();
+
+
         if (session.getFirstTime()) {
             //tap target view
             tapview();
@@ -89,71 +92,71 @@ public class MainActivity extends AppCompatActivity {
 
     private void tapview() {
 
-            new TapTargetSequence(this)
-                    .targets(
-                            TapTarget.forView(findViewById(R.id.notifintro), "Notifications", "Latest offers will be available here !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)                   // Whether to draw a drop shadow or not
-                                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.first),
-                            TapTarget.forView(findViewById(R.id.view_profile), "Profile", "You can view and edit your profile here !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)                   // Whether to draw a drop shadow or not
-                                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.third),
-                            TapTarget.forView(findViewById(R.id.cart), "Your Cart", "Here is Shortcut to your cart !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)
-                                    .cancelable(false)// Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.second),
-                            TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)
-                                    .cancelable(false)// Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.fourth))
-                    .listener(new TapTargetSequence.Listener() {
-                        // This listener will tell us when interesting(tm) events happen in regards
-                        // to the sequence
-                        @Override
-                        public void onSequenceFinish() {
-                            session.setFirstTime(false);
-                            Toasty.success(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
-                        }
+        new TapTargetSequence(this)
+                .targets(
+                        TapTarget.forView(findViewById(R.id.notifintro), "Notifications", "Latest offers will be available here !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.first),
+                        TapTarget.forView(findViewById(R.id.view_profile), "Profile", "You can view and edit your profile here !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.third),
+                        TapTarget.forView(findViewById(R.id.cart), "Your Cart", "Here is Shortcut to your cart !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)
+                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.second),
+                        TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)
+                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.fourth))
+                .listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        session.setFirstTime(false);
+                        Toasty.success(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
+                    }
 
-                        @Override
-                        public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onSequenceCanceled(TapTarget lastTarget) {
-                            // Boo
-                        }
-                    }).start();
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        // Boo
+                    }
+                }).start();
 
     }
 
@@ -245,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
-                        item1, item2, item3, item4, item5, new DividerDrawerItem(), item7, item8, item9, item10,new DividerDrawerItem(),item12,item13
+                        item1, item2, item3, item4, item5, new DividerDrawerItem(), item7, item8, item9, item10, new DividerDrawerItem(), item12, item13
                 )
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
 
@@ -397,6 +400,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void Notifications(View view) {
         startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+    }
+
+    public void onClickListeners() {
+
     }
 
     public void cardsActivity(View view) {
