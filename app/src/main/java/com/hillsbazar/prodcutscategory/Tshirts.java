@@ -23,6 +23,8 @@ import com.hillsbazar.models.GenericProductModel;
 import com.hillsbazar.networksync.CheckInternetConnection;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class Tshirts extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
@@ -40,8 +42,7 @@ public class Tshirts extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
@@ -52,41 +53,29 @@ public class Tshirts extends AppCompatActivity {
 
 
         if (mRecyclerView != null) {
-            //to enable optimization of recyclerview
             mRecyclerView.setHasFixedSize(true);
         }
-        //using staggered grid pattern in recyclerview
+
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<GenericProductModel,Cards.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder>(
-                GenericProductModel.class,
-                R.layout.cards_cardview_layout,
-                Cards.MovieViewHolder.class,
-                //referencing the node where we want the database to store the data from our Object
-                mDatabaseReference.child("Products").child("Tshirt").getRef()
-        ) {
+        final FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder>(GenericProductModel.class, R.layout.cards_cardview_layout, Cards.MovieViewHolder.class, mDatabaseReference.child("Products").child("Tshirt").getRef()) {
             @Override
             protected void populateViewHolder(final Cards.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
-                if(tv_no_item.getVisibility()== View.VISIBLE){
+                if (tv_no_item.getVisibility() == View.VISIBLE) {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getCardname());
-                viewHolder.cardprice.setText("₹ "+Float.toString(model.getCardprice()));
+                viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
                 Picasso.with(Tshirts.this).load(model.getCardimage()).into(viewHolder.cardimage);
 
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Tshirts.this,IndividualProduct.class);
-                        intent.putExtra("product",getItem(position));
-                        startActivity(intent);
-                    }
+                viewHolder.mView.setOnClickListener(v -> {
+                    Intent intent = new Intent(Tshirts.this, IndividualProduct.class);
+                    intent.putExtra("product", getItem(position));
+                    startActivity(intent);
                 });
             }
         };
-
 
 
         mRecyclerView.setAdapter(adapter);
@@ -94,20 +83,21 @@ public class Tshirts extends AppCompatActivity {
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Tshirts.this,Cart.class));
+        startActivity(new Intent(Tshirts.this, Cart.class));
         finish();
     }
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder{
+    public static class MovieViewHolder extends RecyclerView.ViewHolder {
 
         TextView cardname;
         ImageView cardimage;
         TextView cardprice;
 
         View mView;
+
         public MovieViewHolder(View v) {
             super(v);
-            mView =v;
+            mView = v;
             cardname = v.findViewById(R.id.cardcategory);
             cardimage = v.findViewById(R.id.cardimage);
             cardprice = v.findViewById(R.id.cardprice);
@@ -115,7 +105,7 @@ public class Tshirts extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(Tshirts.this,NotificationActivity.class));
+        startActivity(new Intent(Tshirts.this, NotificationActivity.class));
         finish();
     }
 

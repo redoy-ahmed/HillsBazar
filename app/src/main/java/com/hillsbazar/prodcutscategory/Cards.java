@@ -60,56 +60,42 @@ public class Cards extends AppCompatActivity {
         mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<GenericProductModel,MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder>(
-                GenericProductModel.class,
-                R.layout.cards_cardview_layout,
-                MovieViewHolder.class,
-                //referencing the node where we want the database to store the data from our Object
-                mDatabaseReference.child("Products").child("Cards").getRef()
-        ) {
+        final FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder>(GenericProductModel.class, R.layout.cards_cardview_layout, MovieViewHolder.class, mDatabaseReference.child("Products").child("Cards").getRef()) {
             @Override
             protected void populateViewHolder(final MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
-                if(tv_no_item.getVisibility()== View.VISIBLE){
+                if (tv_no_item.getVisibility() == View.VISIBLE) {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getCardname());
-                viewHolder.cardprice.setText("₹ "+Float.toString(model.getCardprice()));
+                viewHolder.cardprice.setText("$ " + model.getCardprice());
                 Picasso.with(Cards.this).load(model.getCardimage()).into(viewHolder.cardimage);
 
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Cards.this,IndividualProduct.class);
-                        intent.putExtra("product",getItem(position));
-                        startActivity(intent);
-                    }
+                viewHolder.mView.setOnClickListener(v -> {
+                    Intent intent = new Intent(Cards.this, IndividualProduct.class);
+                    intent.putExtra("product", getItem(position));
+                    startActivity(intent);
                 });
             }
         };
-
-
-
         mRecyclerView.setAdapter(adapter);
-
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Cards.this,Cart.class));
+        startActivity(new Intent(Cards.this, Cart.class));
         finish();
     }
 
-    //viewHolder for our Firebase UI
-    public static class MovieViewHolder extends RecyclerView.ViewHolder{
+    public static class MovieViewHolder extends RecyclerView.ViewHolder {
 
         TextView cardname;
         ImageView cardimage;
         TextView cardprice;
 
         View mView;
+
         public MovieViewHolder(View v) {
             super(v);
-            mView =v;
+            mView = v;
             cardname = v.findViewById(R.id.cardcategory);
             cardimage = v.findViewById(R.id.cardimage);
             cardprice = v.findViewById(R.id.cardprice);
@@ -117,7 +103,7 @@ public class Cards extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(Cards.this,NotificationActivity.class));
+        startActivity(new Intent(Cards.this, NotificationActivity.class));
         finish();
     }
 
@@ -130,8 +116,6 @@ public class Cards extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
     }
 }

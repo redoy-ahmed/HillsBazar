@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context="com.hillsbazar.IndividualProduct">
-
+    tools:context=".IndividualProduct">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbarwrap"

@@ -88,7 +88,7 @@ public class IndividualProduct extends AppCompatActivity {
     private void initialize() {
         model = (GenericProductModel) getIntent().getSerializableExtra("product");
 
-        productprice.setText("₹ " + Float.toString(model.getCardprice()));
+        productprice.setText("$ " + model.getCardprice());
 
         productname.setText(model.getCardname());
         productdesc.setText(model.getCarddiscription());
