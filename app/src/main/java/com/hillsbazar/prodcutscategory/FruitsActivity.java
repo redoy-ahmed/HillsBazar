@@ -23,6 +23,8 @@ import com.hillsbazar.models.GenericProductModel;
 import com.hillsbazar.networksync.CheckInternetConnection;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class FruitsActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
@@ -40,9 +42,7 @@ public class FruitsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
@@ -60,7 +60,7 @@ public class FruitsActivity extends AppCompatActivity {
         mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        final FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder>(GenericProductModel.class, R.layout.cards_cardview_layout, MovieViewHolder.class, mDatabaseReference.child("Products").child("FruitsActivity").getRef()) {
+        final FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder>(GenericProductModel.class, R.layout.cards_cardview_layout, MovieViewHolder.class, mDatabaseReference.child("Products").child("Cards").getRef()) {
             @Override
             protected void populateViewHolder(final MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
                 if (tv_no_item.getVisibility() == View.VISIBLE) {
