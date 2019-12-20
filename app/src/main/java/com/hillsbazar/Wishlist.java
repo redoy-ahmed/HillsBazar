@@ -26,6 +26,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Wishlist extends AppCompatActivity {
 
@@ -33,8 +34,8 @@ public class Wishlist extends AppCompatActivity {
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
 
     private UserSession session;
-    private HashMap<String,String> user;
-    private String name,email,photo,mobile;
+    private HashMap<String, String> user;
+    private String name, email, photo, mobile;
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
 
@@ -53,20 +54,15 @@ public class Wishlist extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle("Cart");
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
 
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
-        //retrieve session values and display on listviews
         getValues();
 
-        //SharedPreference for Cart Value
         session = new UserSession(getApplicationContext());
 
-        //validating session
         session.isLoggedIn();
 
         mRecyclerView = findViewById(R.id.recyclerview);
@@ -75,16 +71,14 @@ public class Wishlist extends AppCompatActivity {
         emptycart = findViewById(R.id.empty_cart);
 
         if (mRecyclerView != null) {
-            //to enable optimization of recyclerview
             mRecyclerView.setHasFixedSize(true);
         }
-        //using staggered grid pattern in recyclerview
         mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        if(session.getWishlistValue()>0) {
+        if (session.getWishlistValue() > 0) {
             populateRecyclerView();
-        }else if(session.getWishlistValue() == 0)  {
+        } else if (session.getWishlistValue() == 0) {
             tv_no_item.setVisibility(View.GONE);
             activitycartlist.setVisibility(View.GONE);
             emptycart.setVisibility(View.VISIBLE);
@@ -93,50 +87,41 @@ public class Wishlist extends AppCompatActivity {
 
     private void populateRecyclerView() {
 
-        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<SingleProductModel,MovieViewHolder> adapter = new FirebaseRecyclerAdapter<SingleProductModel, MovieViewHolder>(
+        final FirebaseRecyclerAdapter<SingleProductModel, MovieViewHolder> adapter = new FirebaseRecyclerAdapter<SingleProductModel, MovieViewHolder>(
                 SingleProductModel.class,
                 R.layout.cart_item_layout,
                 MovieViewHolder.class,
-                //referencing the node where we want the database to store the data from our Object
                 mDatabaseReference.child("wishlist").child(mobile).getRef()
         ) {
             @Override
             protected void populateViewHolder(final MovieViewHolder viewHolder, final SingleProductModel model, final int position) {
-                if(tv_no_item.getVisibility()== View.VISIBLE){
+                if (tv_no_item.getVisibility() == View.VISIBLE) {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getPrname());
-                viewHolder.cardprice.setText("₹ "+model.getPrprice());
-                viewHolder.cardcount.setText("Quantity : "+model.getNo_of_items());
+                viewHolder.cardprice.setText("$ " + model.getPrprice());
+                viewHolder.cardcount.setText("Quantity : " + model.getNo_of_items());
                 Picasso.with(Wishlist.this).load(model.getPrimage()).into(viewHolder.cardimage);
 
-                viewHolder.carddelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(Wishlist.this,getItem(position).getPrname(),Toast.LENGTH_SHORT).show();
-                        getRef(position).removeValue();
-                        session.decreaseWishlistValue();
-                        startActivity(new Intent(Wishlist.this,Wishlist.class));
-                        finish();
-                    }
+                viewHolder.carddelete.setOnClickListener(v -> {
+                    Toast.makeText(Wishlist.this, getItem(position).getPrname(), Toast.LENGTH_SHORT).show();
+                    getRef(position).removeValue();
+                    session.decreaseWishlistValue();
+                    startActivity(new Intent(Wishlist.this, Wishlist.class));
+                    finish();
                 });
 
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Wishlist.this,IndividualProduct.class);
-                        intent.putExtra("product",new GenericProductModel(model.getPrid(),model.getPrname(),model.getPrimage(),model.getPrdesc(),Float.parseFloat(model.getPrprice())));
-                        startActivity(intent);
-                    }
+                viewHolder.mView.setOnClickListener(v -> {
+                    Intent intent = new Intent(Wishlist.this, IndividualProduct.class);
+                    intent.putExtra("product", new GenericProductModel(model.getPrid(), model.getPrname(), model.getPrimage(), model.getPrdesc(), Float.parseFloat(model.getPrprice())));
+                    startActivity(intent);
                 });
             }
-
         };
         mRecyclerView.setAdapter(adapter);
     }
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder{
+    public static class MovieViewHolder extends RecyclerView.ViewHolder {
 
         TextView cardname;
         ImageView cardimage;
@@ -145,6 +130,7 @@ public class Wishlist extends AppCompatActivity {
         ImageView carddelete;
 
         View mView;
+
         public MovieViewHolder(View v) {
             super(v);
             mView = v;
@@ -180,22 +166,18 @@ public class Wishlist extends AppCompatActivity {
     }
 
     public void viewProfile(View view) {
-        startActivity(new Intent(Wishlist.this,Profile.class));
+        startActivity(new Intent(Wishlist.this, Profile.class));
         finish();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
-
     }
 
     public void Notifications(View view) {
-
-        startActivity(new Intent(Wishlist.this,NotificationActivity.class));
+        startActivity(new Intent(Wishlist.this, NotificationActivity.class));
         finish();
     }
 }

@@ -73,20 +73,12 @@ public class Profile extends AppCompatActivity {
         namebutton=findViewById(R.id.name_button);
         updateDetails=findViewById(R.id.updatedetails);
 
-        updateDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Profile.this,UpdateData.class));
-                finish();
-            }
+        updateDetails.setOnClickListener(view -> {
+            startActivity(new Intent(Profile.this,UpdateData.class));
+            finish();
         });
 
-        addressview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Profile.this,Wishlist.class));
-            }
-        });
+        addressview.setOnClickListener(view -> startActivity(new Intent(Profile.this,Wishlist.class)));
     }
 
     private void getValues() {

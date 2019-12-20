@@ -2,9 +2,8 @@
 <resources>
 
     <string-array name="radio_buttons">
-        <item>PayPal</item>
-        <item>Paytm</item>
-        <item>COD</item>
+        <item>Card</item>
+        <item>Bkash</item>
     </string-array>
 
     <string-array name="examples">
@@ -13,6 +12,5 @@
         <item>Prices</item>
         <item>Wide Range Products</item>
         <item>Unique Products</item>
-        <item>Stylish Items</item>
     </string-array>
 </resources>

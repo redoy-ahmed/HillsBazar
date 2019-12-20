@@ -29,22 +29,19 @@ public class CheckInternetConnection {
                         .setBody(R.string.noconnection)
                         .setPositiveButtonText("Connect Now")
                         .setPositiveColor(R.color.colorPrimaryDark)
-                        .setOnPositiveClicked(new FancyAlertDialog.OnPositiveClicked() {
-                            @Override
-                            public void OnClick(View view, Dialog dialog) {
+                        .setOnPositiveClicked((view, dialog) -> {
 
-                                if(isInternetConnected()){
+                            if(isInternetConnected()){
 
-                                    dialog.dismiss();
+                                dialog.dismiss();
 
-                                }else {
+                            }else {
 
-                                    Intent dialogIntent = new Intent(android.provider.Settings.ACTION_SETTINGS);
-                                    dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    ctx.startActivity(dialogIntent);
-                                }
-                             }
-                        })
+                                Intent dialogIntent = new Intent(android.provider.Settings.ACTION_SETTINGS);
+                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                ctx.startActivity(dialogIntent);
+                            }
+                         })
                         .setBodyGravity(FancyAlertDialog.TextGravity.CENTER)
                         .setTitleGravity(FancyAlertDialog.TextGravity.CENTER)
                         .setSubtitleGravity(FancyAlertDialog.TextGravity.CENTER)

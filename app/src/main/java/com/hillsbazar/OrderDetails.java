@@ -112,12 +112,7 @@ public class OrderDetails extends AppCompatActivity {
         String tomorrow = (formattedDate.format(c.getTime()));
         deliveryDate.setText(tomorrow);
 
-        mainActivityMultiLineRadioGroup.setOnCheckedChangeListener(new MultiLineRadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(ViewGroup group, RadioButton button) {
-                payment_mode = button.getText().toString();
-            }
-        });
+        mainActivityMultiLineRadioGroup.setOnCheckedChangeListener((MultiLineRadioGroup.OnCheckedChangeListener) (group, button) -> payment_mode = button.getText().toString());
 
         user = session.getUserDetails();
 

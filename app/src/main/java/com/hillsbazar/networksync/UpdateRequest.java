@@ -1,6 +1,5 @@
 package com.hillsbazar.networksync;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
@@ -22,7 +21,7 @@ public class UpdateRequest extends StringRequest {
     }
 
     @Override
-    protected Map<String, String> getParams() throws AuthFailureError {
+    protected Map<String, String> getParams() {
         return parameters;
     }
 }

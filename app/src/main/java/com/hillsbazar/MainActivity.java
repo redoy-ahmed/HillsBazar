@@ -18,12 +18,12 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.hillsbazar.networksync.CheckInternetConnection;
-import com.hillsbazar.prodcutscategory.Bags;
-import com.hillsbazar.prodcutscategory.Calendars;
-import com.hillsbazar.prodcutscategory.Cards;
-import com.hillsbazar.prodcutscategory.Keychains;
-import com.hillsbazar.prodcutscategory.Stationary;
-import com.hillsbazar.prodcutscategory.Tshirts;
+import com.hillsbazar.prodcutscategory.SpicesActivity;
+import com.hillsbazar.prodcutscategory.RicesActivity;
+import com.hillsbazar.prodcutscategory.FruitsActivity;
+import com.hillsbazar.prodcutscategory.DryFishActivity;
+import com.hillsbazar.prodcutscategory.OthersActivity;
+import com.hillsbazar.prodcutscategory.VegetablesActivity;
 import com.hillsbazar.usersession.UserSession;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -407,29 +407,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cardsActivity(View view) {
-        startActivity(new Intent(MainActivity.this, Cards.class));
+        startActivity(new Intent(MainActivity.this, FruitsActivity.class));
     }
 
     public void tshirtActivity(View view) {
-        startActivity(new Intent(MainActivity.this, Tshirts.class));
+        startActivity(new Intent(MainActivity.this, VegetablesActivity.class));
     }
 
     public void bagsActivity(View view) {
 
-        startActivity(new Intent(MainActivity.this, Bags.class));
+        startActivity(new Intent(MainActivity.this, SpicesActivity.class));
     }
 
     public void stationaryAcitivity(View view) {
 
-        startActivity(new Intent(MainActivity.this, Stationary.class));
+        startActivity(new Intent(MainActivity.this, OthersActivity.class));
     }
 
     public void calendarsActivity(View view) {
 
-        startActivity(new Intent(MainActivity.this, Calendars.class));
+        startActivity(new Intent(MainActivity.this, RicesActivity.class));
     }
 
     public void keychainsActivity(View view) {
-        startActivity(new Intent(MainActivity.this, Keychains.class));
+        startActivity(new Intent(MainActivity.this, DryFishActivity.class));
     }
 }

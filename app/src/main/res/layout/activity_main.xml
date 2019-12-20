@@ -119,12 +119,12 @@
                             <ImageView
                                 android:id="@+id/visitingcards"
                                 style="@style/homegridimage"
-                                android:src="@drawable/visitingcard" />
+                                android:src="@drawable/fruits" />
 
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/visitingcards"
-                                android:text="Visiting Cards" />
+                                android:text="Fruits" />
 
                         </RelativeLayout>
 
@@ -142,12 +142,12 @@
                             <ImageView
                                 android:id="@+id/tshirts"
                                 style="@style/homegridimage"
-                                android:src="@drawable/tshirt" />
+                                android:src="@drawable/vegetables" />
 
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/tshirts"
-                                android:text="T-Shirts" />
+                                android:text="Vegetables" />
 
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -172,12 +172,12 @@
                             <ImageView
                                 android:id="@+id/bags"
                                 style="@style/homegridimage"
-                                android:src="@drawable/bags" />
+                                android:src="@drawable/spices" />
 
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/bags"
-                                android:text="Bags" />
+                                android:text="Spices" />
 
                         </RelativeLayout>
 
@@ -195,12 +195,12 @@
                             <ImageView
                                 android:id="@+id/Stationary"
                                 style="@style/homegridimage"
-                                android:src="@drawable/pens" />
+                                android:src="@drawable/dryfish" />
 
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/Stationary"
-                                android:text="Stationary" />
+                                android:text="Dry Fish" />
 
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -225,12 +225,12 @@
                             <ImageView
                                 android:id="@+id/calendars"
                                 style="@style/homegridimage"
-                                android:src="@drawable/calendar" />
+                                android:src="@drawable/rice" />
 
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/calendars"
-                                android:text="Calendars" />
+                                android:text="Rice" />
 
                         </RelativeLayout>
 
@@ -253,7 +253,7 @@
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/keychain"
-                                android:text="Keychains" />
+                                android:text="Others" />
 
                         </RelativeLayout>
 

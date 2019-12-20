@@ -16,6 +16,7 @@ import com.hillsbazar.networksync.CheckInternetConnection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 
@@ -37,8 +38,7 @@ public class NotificationActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
         listView = findViewById(R.id.listView);
         emptycart = findViewById(R.id.empty_notification);

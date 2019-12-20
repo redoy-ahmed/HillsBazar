@@ -11,19 +11,11 @@ import java.util.HashMap;
 
 public class UserSession {
 
-    // Shared Preferences
     SharedPreferences pref;
-
-    // Editor for Shared preferences
     SharedPreferences.Editor editor;
-
-    // Context
     Context context;
-
-    // Shared pref mode
     int PRIVATE_MODE = 0;
 
-    // Sharedpref file name
     private static final String PREF_NAME = "UserSessionPref";
 
     // First time logic Check

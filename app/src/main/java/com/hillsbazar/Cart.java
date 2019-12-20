@@ -109,7 +109,7 @@ public class Cart extends AppCompatActivity {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getPrname());
-                viewHolder.cardprice.setText("₹ "+model.getPrprice());
+                viewHolder.cardprice.setText("$ "+model.getPrprice());
                 viewHolder.cardcount.setText("Quantity : "+model.getNo_of_items());
                 Picasso.with(Cart.this).load(model.getPrimage()).into(viewHolder.cardimage);
 
@@ -117,15 +117,12 @@ public class Cart extends AppCompatActivity {
                 totalproducts += model.getNo_of_items();
                 cartcollect.add(model);
 
-                viewHolder.carddelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(Cart.this,getItem(position).getPrname(),Toast.LENGTH_SHORT).show();
-                        getRef(position).removeValue();
-                        session.decreaseCartValue();
-                        startActivity(new Intent(Cart.this,Cart.class));
-                        finish();
-                    }
+                viewHolder.carddelete.setOnClickListener(v -> {
+                    Toast.makeText(Cart.this,getItem(position).getPrname(),Toast.LENGTH_SHORT).show();
+                    getRef(position).removeValue();
+                    session.decreaseCartValue();
+                    startActivity(new Intent(Cart.this,Cart.class));
+                    finish();
                 });
             }
         };

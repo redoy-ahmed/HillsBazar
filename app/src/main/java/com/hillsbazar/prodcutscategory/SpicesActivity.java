@@ -23,22 +23,25 @@ import com.hillsbazar.models.GenericProductModel;
 import com.hillsbazar.networksync.CheckInternetConnection;
 import com.squareup.picasso.Picasso;
 
-public class Keychains extends AppCompatActivity {
+public class SpicesActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
     private LottieAnimationView tv_no_item;
 
+    //Getting reference to Firebase Database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = database.getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cards);
+        setContentView(R.layout.activity_products);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -60,29 +63,26 @@ public class Keychains extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder>(
+        final FirebaseRecyclerAdapter<GenericProductModel, FruitsActivity.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, FruitsActivity.MovieViewHolder>(
                 GenericProductModel.class,
                 R.layout.cards_cardview_layout,
-                Cards.MovieViewHolder.class,
+                FruitsActivity.MovieViewHolder.class,
                 //referencing the node where we want the database to store the data from our Object
-                mDatabaseReference.child("Products").child("Keychain").getRef()
+                mDatabaseReference.child("Products").child("SpicesActivity").getRef()
         ) {
             @Override
-            protected void populateViewHolder(final Cards.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
+            protected void populateViewHolder(final FruitsActivity.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
                 if (tv_no_item.getVisibility() == View.VISIBLE) {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getCardname());
-                viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
-                Picasso.with(Keychains.this).load(model.getCardimage()).into(viewHolder.cardimage);
+                viewHolder.cardprice.setText("$ " + model.getCardprice());
+                Picasso.with(SpicesActivity.this).load(model.getCardimage()).into(viewHolder.cardimage);
 
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Keychains.this, IndividualProduct.class);
-                        intent.putExtra("product", getItem(position));
-                        startActivity(intent);
-                    }
+                viewHolder.mView.setOnClickListener(v -> {
+                    Intent intent = new Intent(SpicesActivity.this, IndividualProduct.class);
+                    intent.putExtra("product", getItem(position));
+                    startActivity(intent);
                 });
             }
         };
@@ -93,10 +93,12 @@ public class Keychains extends AppCompatActivity {
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Keychains.this, Cart.class));
+        startActivity(new Intent(SpicesActivity.this, Cart.class));
         finish();
     }
 
+
+    //viewHolder for our Firebase UI
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
 
         TextView cardname;
@@ -115,7 +117,7 @@ public class Keychains extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(Keychains.this, NotificationActivity.class));
+        startActivity(new Intent(SpicesActivity.this, NotificationActivity.class));
         finish();
     }
 

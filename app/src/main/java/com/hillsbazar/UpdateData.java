@@ -46,6 +46,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
@@ -55,7 +56,7 @@ public class UpdateData extends AppCompatActivity {
     private Drawer result;
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
     private Button button;
-    private EditText edtname,edtemail,edtmobile;
+    private EditText edtname, edtemail, edtmobile;
     CircleImageView primage;
     private TextView namebutton;
     private ImageView changeprofilepic;
@@ -64,8 +65,8 @@ public class UpdateData extends AppCompatActivity {
     String changedImage;
 
     private UserSession session;
-    private HashMap<String,String> user;
-    private String name,email,photo,mobile,newemail;
+    private HashMap<String, String> user;
+    private String name, email, photo, mobile, newemail;
     private String check;
     private RequestQueue requestQueue;
     public static final String TAG = "MyTag";
@@ -79,108 +80,84 @@ public class UpdateData extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
         initialize();
 
         requestQueue = Volley.newRequestQueue(UpdateData.this);
-
-        //retrieve session values and display on listviews
         getValues();
 
+        changeprofilepic.setOnClickListener(view -> Dexter.withActivity(UpdateData.this)
+                .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+                            // do you work now
 
-        //onclick of upload icon user should be able to click and change profile pic
-        changeprofilepic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-
-                Dexter.withActivity(UpdateData.this)
-                        .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .withListener(new MultiplePermissionsListener() {
-                            @Override
-                            public void onPermissionsChecked(MultiplePermissionsReport report) {
-                                // check if all permissions are granted
-                                if (report.areAllPermissionsGranted()) {
-                                    // do you work now
-
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1000);
-                //result will be available in onActivityResult which is overridden
-                                }
-
-                                // check for permanent denial of any permission
-                                if (report.isAnyPermissionPermanentlyDenied()) {
-                                    // permission is denied permenantly, navigate user to app settings
-                                    Snackbar.make(view, "Kindly grant Required Permission", Snackbar.LENGTH_LONG)
-                                            .setAction("Allow", null).show();
-                                }
-                            }
-
-                            @Override
-                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                                token.continuePermissionRequest();
-                            }
-                        })
-                        .onSameThread()
-                        .check();
-            }
-        });
-
-
-        //Updating user details and after update send user to profile page
-        button=findViewById(R.id.update);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (validateName() && validateEmail() && validateNumber()) {
-
-                    name = edtname.getText().toString();
-                    newemail = edtemail.getText().toString();
-                    mobile = edtmobile.getText().toString();
-
-                    final KProgressHUD progressDialog = KProgressHUD.create(UpdateData.this)
-                            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                            .setLabel("Please wait")
-                            .setCancellable(false)
-                            .setAnimationSpeed(2)
-                            .setDimAmount(0.5f)
-                            .show();
-
-                    UpdateRequest updateRequest = new UpdateRequest(name, mobile, email, newemail, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-
-                            progressDialog.dismiss();
-                            try {
-                                if (new JSONObject(response).getBoolean("success")) {
-                                    Toasty.success(UpdateData.this, "Updated Succesfully", Toast.LENGTH_LONG, true).show();
-
-                                    session.createLoginSession(name,newemail,mobile,photo);
-
-                                    Intent registersuccess = new Intent(UpdateData.this, Profile.class);
-                                    startActivity(registersuccess);
-                                    finish();
-                                } else {
-                                    Toasty.error(UpdateData.this, "User is not registered", Toast.LENGTH_LONG, true).show();
-                                }
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
+                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                            intent.setType("image/*");
+                            startActivityForResult(intent, 1000);
                         }
 
-                    });
-                    requestQueue.add(updateRequest);
-                }else{
-                    Toasty.warning(UpdateData.this,"Incorrect Details Entered",Toast.LENGTH_LONG).show();
-                }
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            Snackbar.make(view, "Kindly grant Required Permission", Snackbar.LENGTH_LONG)
+                                    .setAction("Allow", null).show();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                })
+                .onSameThread()
+                .check());
+
+        button = findViewById(R.id.update);
+        button.setOnClickListener(view -> {
+
+            if (validateName() && validateEmail() && validateNumber()) {
+
+                name = edtname.getText().toString();
+                newemail = edtemail.getText().toString();
+                mobile = edtmobile.getText().toString();
+
+                final KProgressHUD progressDialog = KProgressHUD.create(UpdateData.this)
+                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                        .setLabel("Please wait")
+                        .setCancellable(false)
+                        .setAnimationSpeed(2)
+                        .setDimAmount(0.5f)
+                        .show();
+
+                UpdateRequest updateRequest = new UpdateRequest(name, mobile, email, newemail, response -> {
+
+                    progressDialog.dismiss();
+                    try {
+                        if (new JSONObject(response).getBoolean("success")) {
+                            Toasty.success(UpdateData.this, "Updated Succesfully", Toast.LENGTH_LONG, true).show();
+
+                            session.createLoginSession(name, newemail, mobile, photo);
+
+                            Intent registersuccess = new Intent(UpdateData.this, Profile.class);
+                            startActivity(registersuccess);
+                            finish();
+                        } else {
+                            Toasty.error(UpdateData.this, "User is not registered", Toast.LENGTH_LONG, true).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                });
+                requestQueue.add(updateRequest);
+            } else {
+                Toasty.warning(UpdateData.this, "Incorrect Details Entered", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -197,10 +174,9 @@ public class UpdateData extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000 && resultCode == Activity.RESULT_OK && data != null) {
-            //Image Successfully Selected
             try {
-                //parsing the Intent data and displaying it in the imageview
                 Uri imageUri = data.getData();//Geting uri of the data
+                assert imageUri != null;
                 InputStream imageStream = getContentResolver().openInputStream(imageUri);//creating an imputstrea
                 profilePicture = BitmapFactory.decodeStream(imageStream);//decoding the input stream to bitmap
                 primage.setImageBitmap(profilePicture);
@@ -211,7 +187,7 @@ public class UpdateData extends AppCompatActivity {
         }
 
         //Updating profile pic manually
-        final KProgressHUD progressDialog=  KProgressHUD.create(UpdateData.this)
+        final KProgressHUD progressDialog = KProgressHUD.create(UpdateData.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("Uploading Photo..")
                 .setCancellable(false)
@@ -221,11 +197,11 @@ public class UpdateData extends AppCompatActivity {
 
         convertBitmapToString(profilePicture);
 
-        final ChangePhotoRequest changePhotoRequest = new ChangePhotoRequest(email,changedImage, new Response.Listener<String>() {
+        final ChangePhotoRequest changePhotoRequest = new ChangePhotoRequest(email, changedImage, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Log.e("response",response);
+                Log.e("response", response);
                 progressDialog.dismiss();
                 try {
                     if (new JSONObject(response).getBoolean("success")) {
@@ -234,7 +210,7 @@ public class UpdateData extends AppCompatActivity {
                     } else {
                         Toasty.error(UpdateData.this, "User not registered", Toast.LENGTH_SHORT, true).show();
                     }
-                }catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -247,10 +223,10 @@ public class UpdateData extends AppCompatActivity {
     private boolean validateNumber() {
 
         check = edtmobile.getText().toString();
-        Log.e("inside number",check.length()+" ");
-        if (check.length()>10) {
+        Log.e("inside number", check.length() + " ");
+        if (check.length() > 10) {
             return false;
-        }else if(check.length()<10){
+        } else if (check.length() < 10) {
             return false;
         }
         return true;
@@ -346,9 +322,9 @@ public class UpdateData extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length()>10) {
+            if (check.length() > 10) {
                 edtmobile.setError("Number cannot be grated than 10 digits");
-            }else if(check.length()<10){
+            } else if (check.length() < 10) {
                 edtmobile.setError("Number should be 10 digits");
             }
         }
@@ -357,11 +333,11 @@ public class UpdateData extends AppCompatActivity {
 
     private void initialize() {
 
-        namebutton =findViewById(R.id.name_button);
+        namebutton = findViewById(R.id.name_button);
         primage = findViewById(R.id.profilepic);
-        edtname =findViewById(R.id.name);
-        edtemail =findViewById(R.id.email);
-        edtmobile =findViewById(R.id.number);
+        edtname = findViewById(R.id.name);
+        edtemail = findViewById(R.id.email);
+        edtmobile = findViewById(R.id.number);
         changeprofilepic = findViewById(R.id.changeprofilepic);
 
         edtname.addTextChangedListener(nameWatcher);
@@ -402,12 +378,12 @@ public class UpdateData extends AppCompatActivity {
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(UpdateData.this,Cart.class));
+        startActivity(new Intent(UpdateData.this, Cart.class));
         finish();
     }
 
     public void viewProfile(View view) {
-        startActivity(new Intent(UpdateData.this,Profile.class));
+        startActivity(new Intent(UpdateData.this, Profile.class));
         finish();
     }
 
@@ -420,7 +396,7 @@ public class UpdateData extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop () {
+    protected void onStop() {
         super.onStop();
         if (requestQueue != null) {
             requestQueue.stop();

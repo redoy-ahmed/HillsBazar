@@ -23,7 +23,7 @@ import com.hillsbazar.models.GenericProductModel;
 import com.hillsbazar.networksync.CheckInternetConnection;
 import com.squareup.picasso.Picasso;
 
-public class Cards extends AppCompatActivity {
+public class DryFishActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
@@ -35,11 +35,10 @@ public class Cards extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cards);
+        setContentView(R.layout.activity_products);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -57,31 +56,41 @@ public class Cards extends AppCompatActivity {
             mRecyclerView.setHasFixedSize(true);
         }
         //using staggered grid pattern in recyclerview
-        mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        final FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder>(GenericProductModel.class, R.layout.cards_cardview_layout, MovieViewHolder.class, mDatabaseReference.child("Products").child("Cards").getRef()) {
+        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
+        final FirebaseRecyclerAdapter<GenericProductModel, FruitsActivity.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, FruitsActivity.MovieViewHolder>(
+                GenericProductModel.class,
+                R.layout.cards_cardview_layout,
+                FruitsActivity.MovieViewHolder.class,
+                //referencing the node where we want the database to store the data from our Object
+                mDatabaseReference.child("Products").child("Keychain").getRef()
+        ) {
             @Override
-            protected void populateViewHolder(final MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
+            protected void populateViewHolder(final FruitsActivity.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
                 if (tv_no_item.getVisibility() == View.VISIBLE) {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getCardname());
                 viewHolder.cardprice.setText("$ " + model.getCardprice());
-                Picasso.with(Cards.this).load(model.getCardimage()).into(viewHolder.cardimage);
+                Picasso.with(DryFishActivity.this).load(model.getCardimage()).into(viewHolder.cardimage);
 
                 viewHolder.mView.setOnClickListener(v -> {
-                    Intent intent = new Intent(Cards.this, IndividualProduct.class);
+                    Intent intent = new Intent(DryFishActivity.this, IndividualProduct.class);
                     intent.putExtra("product", getItem(position));
                     startActivity(intent);
                 });
             }
         };
+
+
         mRecyclerView.setAdapter(adapter);
+
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Cards.this, Cart.class));
+        startActivity(new Intent(DryFishActivity.this, Cart.class));
         finish();
     }
 
@@ -103,7 +112,7 @@ public class Cards extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(Cards.this, NotificationActivity.class));
+        startActivity(new Intent(DryFishActivity.this, NotificationActivity.class));
         finish();
     }
 
@@ -116,6 +125,8 @@ public class Cards extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
     }
 }

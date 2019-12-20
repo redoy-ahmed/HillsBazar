@@ -1,13 +1,12 @@
 package com.hillsbazar.networksync;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterRequest  extends StringRequest {
+public class RegisterRequest extends StringRequest {
 
     private static final String REGISTER_URL = "http://magic-print.000webhostapp.com/register.php";
     private Map<String, String> parameters;
@@ -24,7 +23,7 @@ public class RegisterRequest  extends StringRequest {
     }
 
     @Override
-    protected Map<String, String> getParams() throws AuthFailureError {
+    protected Map<String, String> getParams() {
         return parameters;
     }
 }

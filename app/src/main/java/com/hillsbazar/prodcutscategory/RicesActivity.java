@@ -23,9 +23,7 @@ import com.hillsbazar.models.GenericProductModel;
 import com.hillsbazar.networksync.CheckInternetConnection;
 import com.squareup.picasso.Picasso;
 
-import java.util.Objects;
-
-public class Tshirts extends AppCompatActivity {
+public class RicesActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
@@ -37,15 +35,18 @@ public class Tshirts extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cards);
+        setContentView(R.layout.activity_products);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
+
 
         //Initializing our Recyclerview
         mRecyclerView = findViewById(R.id.my_recycler_view);
@@ -53,24 +54,32 @@ public class Tshirts extends AppCompatActivity {
 
 
         if (mRecyclerView != null) {
+            //to enable optimization of recyclerview
             mRecyclerView.setHasFixedSize(true);
         }
-
+        //using staggered grid pattern in recyclerview
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        final FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder>(GenericProductModel.class, R.layout.cards_cardview_layout, Cards.MovieViewHolder.class, mDatabaseReference.child("Products").child("Tshirt").getRef()) {
+        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
+        final FirebaseRecyclerAdapter<GenericProductModel, FruitsActivity.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, FruitsActivity.MovieViewHolder>(
+                GenericProductModel.class,
+                R.layout.cards_cardview_layout,
+                FruitsActivity.MovieViewHolder.class,
+                //referencing the node where we want the database to store the data from our Object
+                mDatabaseReference.child("Products").child("Calendar").getRef()
+        ) {
             @Override
-            protected void populateViewHolder(final Cards.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
+            protected void populateViewHolder(final FruitsActivity.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
                 if (tv_no_item.getVisibility() == View.VISIBLE) {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getCardname());
-                viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
-                Picasso.with(Tshirts.this).load(model.getCardimage()).into(viewHolder.cardimage);
+                viewHolder.cardprice.setText("$ " + model.getCardprice());
+                Picasso.with(RicesActivity.this).load(model.getCardimage()).into(viewHolder.cardimage);
 
                 viewHolder.mView.setOnClickListener(v -> {
-                    Intent intent = new Intent(Tshirts.this, IndividualProduct.class);
+                    Intent intent = new Intent(RicesActivity.this, IndividualProduct.class);
                     intent.putExtra("product", getItem(position));
                     startActivity(intent);
                 });
@@ -83,7 +92,7 @@ public class Tshirts extends AppCompatActivity {
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Tshirts.this, Cart.class));
+        startActivity(new Intent(RicesActivity.this, Cart.class));
         finish();
     }
 
@@ -105,7 +114,7 @@ public class Tshirts extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(Tshirts.this, NotificationActivity.class));
+        startActivity(new Intent(RicesActivity.this, NotificationActivity.class));
         finish();
     }
 

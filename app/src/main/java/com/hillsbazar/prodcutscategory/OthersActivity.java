@@ -23,7 +23,7 @@ import com.hillsbazar.models.GenericProductModel;
 import com.hillsbazar.networksync.CheckInternetConnection;
 import com.squareup.picasso.Picasso;
 
-public class Stationary extends AppCompatActivity {
+public class OthersActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
@@ -35,7 +35,7 @@ public class Stationary extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cards);
+        setContentView(R.layout.activity_products);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -60,29 +60,26 @@ public class Stationary extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder>(
+        final FirebaseRecyclerAdapter<GenericProductModel, FruitsActivity.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, FruitsActivity.MovieViewHolder>(
                 GenericProductModel.class,
                 R.layout.cards_cardview_layout,
-                Cards.MovieViewHolder.class,
+                FruitsActivity.MovieViewHolder.class,
                 //referencing the node where we want the database to store the data from our Object
-                mDatabaseReference.child("Products").child("Stationary").getRef()
+                mDatabaseReference.child("Products").child("OthersActivity").getRef()
         ) {
             @Override
-            protected void populateViewHolder(final Cards.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
+            protected void populateViewHolder(final FruitsActivity.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
                 if (tv_no_item.getVisibility() == View.VISIBLE) {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getCardname());
-                viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
-                Picasso.with(Stationary.this).load(model.getCardimage()).into(viewHolder.cardimage);
+                viewHolder.cardprice.setText("$ " + model.getCardprice());
+                Picasso.with(OthersActivity.this).load(model.getCardimage()).into(viewHolder.cardimage);
 
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Stationary.this, IndividualProduct.class);
-                        intent.putExtra("product", getItem(position));
-                        startActivity(intent);
-                    }
+                viewHolder.mView.setOnClickListener(v -> {
+                    Intent intent = new Intent(OthersActivity.this, IndividualProduct.class);
+                    intent.putExtra("product", getItem(position));
+                    startActivity(intent);
                 });
             }
         };
@@ -93,7 +90,7 @@ public class Stationary extends AppCompatActivity {
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Stationary.this, Cart.class));
+        startActivity(new Intent(OthersActivity.this, Cart.class));
         finish();
     }
 
@@ -115,7 +112,7 @@ public class Stationary extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(Stationary.this, NotificationActivity.class));
+        startActivity(new Intent(OthersActivity.this, NotificationActivity.class));
         finish();
     }
 

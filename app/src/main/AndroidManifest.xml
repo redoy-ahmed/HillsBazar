@@ -84,7 +84,7 @@
             android:theme="@style/WhiteTheme" />
 
         <activity
-            android:name=".prodcutscategory.Cards"
+            android:name=".prodcutscategory.FruitsActivity"
             android:theme="@style/WhiteTheme" />
 
         <activity
@@ -104,23 +104,23 @@
             android:theme="@style/WhiteTheme" />
 
         <activity
-            android:name=".prodcutscategory.Tshirts"
+            android:name=".prodcutscategory.VegetablesActivity"
             android:theme="@style/WhiteTheme" />
 
         <activity
-            android:name="prodcutscategory.Bags"
+            android:name=".prodcutscategory.SpicesActivity"
             android:theme="@style/WhiteTheme" />
 
         <activity
-            android:name="prodcutscategory.Calendars"
+            android:name=".prodcutscategory.RicesActivity"
             android:theme="@style/WhiteTheme" />
 
         <activity
-            android:name="prodcutscategory.Keychains"
+            android:name=".prodcutscategory.DryFishActivity"
             android:theme="@style/WhiteTheme" />
 
         <activity
-            android:name="prodcutscategory.Stationary"
+            android:name=".prodcutscategory.OthersActivity"
             android:theme="@style/WhiteTheme" />
 
         <activity

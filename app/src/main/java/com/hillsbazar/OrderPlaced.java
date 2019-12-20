@@ -24,7 +24,6 @@ public class OrderPlaced extends AppCompatActivity {
         setContentView(R.layout.activity_order_placed);
         ButterKnife.bind(this);
 
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
         initialize();

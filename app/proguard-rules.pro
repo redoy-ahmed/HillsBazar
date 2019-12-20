@@ -56,16 +56,16 @@
 
 -keepclasseswithmembers class * { @com.activeandroid.annotation.Column <fields>; }
 -keepattributes InnerClasses
--keep class com.hillsbazar.prodcutscategory.Bags$* { *; }
--keep class com.hillsbazar.prodcutscategory.Calendars$* { *; }
--keep class com.hillsbazar.prodcutscategory.Cards$* { *; }
--keep class com.hillsbazar.prodcutscategory.Keychains$* { *; }
--keep class com.hillsbazar.prodcutscategory.Stationary$* { *; }
--keep class com.hillsbazar.prodcutscategory.Tshirts$* { *; }
+-keep class com.hillsbazar.prodcutscategory.SpicesActivity$* { *; }
+-keep class com.hillsbazar.prodcutscategory.RicesActivity$* { *; }
+-keep class com.hillsbazar.prodcutscategory.FruitsActivity$* { *; }
+-keep class com.hillsbazar.prodcutscategory.DryFishActivity$* { *; }
+-keep class com.hillsbazar.prodcutscategory.OthersActivity$* { *; }
+-keep class com.hillsbazar.prodcutscategory.VegetablesActivity$* { *; }
 
--keep class com.hillsbazar.prodcutscategory.Bags** { *; }
--keep class com.hillsbazar.prodcutscategory.Calendars** { *; }
--keep class com.hillsbazar.prodcutscategory.Cards** { *; }
--keep class com.hillsbazar.prodcutscategory.Keychains** { *; }
--keep class com.hillsbazar.prodcutscategory.Stationary** { *; }
--keep class com.hillsbazar.prodcutscategory.Tshirts** { *; }
+-keep class com.hillsbazar.prodcutscategory.SpicesActivity** { *; }
+-keep class com.hillsbazar.prodcutscategory.RicesActivity** { *; }
+-keep class com.hillsbazar.prodcutscategory.FruitsActivity** { *; }
+-keep class com.hillsbazar.prodcutscategory.DryFishActivity** { *; }
+-keep class com.hillsbazar.prodcutscategory.OthersActivity** { *; }
+-keep class com.hillsbazar.prodcutscategory.VegetablesActivity** { *; }

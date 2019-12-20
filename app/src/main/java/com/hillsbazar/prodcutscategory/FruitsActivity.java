@@ -23,7 +23,7 @@ import com.hillsbazar.models.GenericProductModel;
 import com.hillsbazar.networksync.CheckInternetConnection;
 import com.squareup.picasso.Picasso;
 
-public class Calendars extends AppCompatActivity {
+public class FruitsActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
@@ -35,7 +35,7 @@ public class Calendars extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cards);
+        setContentView(R.layout.activity_products);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,7 +47,6 @@ public class Calendars extends AppCompatActivity {
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
-
         //Initializing our Recyclerview
         mRecyclerView = findViewById(R.id.my_recycler_view);
         tv_no_item = findViewById(R.id.tv_no_cards);
@@ -58,44 +57,31 @@ public class Calendars extends AppCompatActivity {
             mRecyclerView.setHasFixedSize(true);
         }
         //using staggered grid pattern in recyclerview
-        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder>(
-                GenericProductModel.class,
-                R.layout.cards_cardview_layout,
-                Cards.MovieViewHolder.class,
-                //referencing the node where we want the database to store the data from our Object
-                mDatabaseReference.child("Products").child("Calendar").getRef()
-        ) {
+        final FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, MovieViewHolder>(GenericProductModel.class, R.layout.cards_cardview_layout, MovieViewHolder.class, mDatabaseReference.child("Products").child("FruitsActivity").getRef()) {
             @Override
-            protected void populateViewHolder(final Cards.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
+            protected void populateViewHolder(final MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
                 if (tv_no_item.getVisibility() == View.VISIBLE) {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getCardname());
-                viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
-                Picasso.with(Calendars.this).load(model.getCardimage()).into(viewHolder.cardimage);
+                viewHolder.cardprice.setText("$ " + model.getCardprice());
+                Picasso.with(FruitsActivity.this).load(model.getCardimage()).into(viewHolder.cardimage);
 
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Calendars.this, IndividualProduct.class);
-                        intent.putExtra("product", getItem(position));
-                        startActivity(intent);
-                    }
+                viewHolder.mView.setOnClickListener(v -> {
+                    Intent intent = new Intent(FruitsActivity.this, IndividualProduct.class);
+                    intent.putExtra("product", getItem(position));
+                    startActivity(intent);
                 });
             }
         };
-
-
         mRecyclerView.setAdapter(adapter);
-
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Calendars.this, Cart.class));
+        startActivity(new Intent(FruitsActivity.this, Cart.class));
         finish();
     }
 
@@ -117,7 +103,7 @@ public class Calendars extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(Calendars.this, NotificationActivity.class));
+        startActivity(new Intent(FruitsActivity.this, NotificationActivity.class));
         finish();
     }
 
@@ -130,8 +116,6 @@ public class Calendars extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
     }
 }
