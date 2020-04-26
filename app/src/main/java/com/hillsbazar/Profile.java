@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.glide.slider.library.SliderLayout;
+import com.glide.slider.library.slidertypes.DefaultSliderView;
 import com.hillsbazar.networksync.CheckInternetConnection;
 import com.hillsbazar.usersession.UserSession;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
@@ -49,7 +49,6 @@ public class Profile extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         initialize();
 
@@ -102,7 +101,7 @@ public class Profile extends AppCompatActivity {
         tvphone.setText(mobile);
         namebutton.setText(name);
 
-        Picasso.with(Profile.this).load(photo).into(primage);
+        Picasso.get().load(photo).into(primage);
 
 
     }

@@ -101,7 +101,7 @@ public class Wishlist extends AppCompatActivity {
                 viewHolder.cardname.setText(model.getPrname());
                 viewHolder.cardprice.setText("$ " + model.getPrprice());
                 viewHolder.cardcount.setText("Quantity : " + model.getNo_of_items());
-                Picasso.with(Wishlist.this).load(model.getPrimage()).into(viewHolder.cardimage);
+                Picasso.get().load(model.getPrimage()).into(viewHolder.cardimage);
 
                 viewHolder.carddelete.setOnClickListener(v -> {
                     Toast.makeText(Wishlist.this, getItem(position).getPrname(), Toast.LENGTH_SHORT).show();

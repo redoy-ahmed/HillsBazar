@@ -111,7 +111,7 @@ public class Cart extends AppCompatActivity {
                 viewHolder.cardname.setText(model.getPrname());
                 viewHolder.cardprice.setText("$ "+model.getPrprice());
                 viewHolder.cardcount.setText("Quantity : "+model.getNo_of_items());
-                Picasso.with(Cart.this).load(model.getPrimage()).into(viewHolder.cardimage);
+                Picasso.get().load(model.getPrimage()).into(viewHolder.cardimage);
 
                 totalcost += model.getNo_of_items()*Float.parseFloat(model.getPrprice());
                 totalproducts += model.getNo_of_items();

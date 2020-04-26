@@ -74,7 +74,7 @@ public class OthersActivity extends AppCompatActivity {
                 }
                 viewHolder.cardname.setText(model.getCardname());
                 viewHolder.cardprice.setText("$ " + model.getCardprice());
-                Picasso.with(OthersActivity.this).load(model.getCardimage()).into(viewHolder.cardimage);
+                Picasso.get().load(model.getCardimage()).into(viewHolder.cardimage);
 
                 viewHolder.mView.setOnClickListener(v -> {
                     Intent intent = new Intent(OthersActivity.this, IndividualProduct.class);

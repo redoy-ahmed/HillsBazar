@@ -93,7 +93,7 @@ public class IndividualProduct extends AppCompatActivity {
         productname.setText(model.getCardname());
         productdesc.setText(model.getCarddiscription());
         quantityProductPage.setText("1");
-        Picasso.with(IndividualProduct.this).load(model.getCardimage()).into(productimage);
+        Picasso.get().load(model.getCardimage()).into(productimage);
 
         //SharedPreference for Cart Value
         session = new UserSession(getApplicationContext());

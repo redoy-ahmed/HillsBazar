@@ -13,10 +13,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.glide.slider.library.SliderLayout;
+import com.glide.slider.library.slidertypes.DefaultSliderView;
 import com.hillsbazar.networksync.CheckInternetConnection;
 import com.hillsbazar.prodcutscategory.SpicesActivity;
 import com.hillsbazar.prodcutscategory.RicesActivity;
