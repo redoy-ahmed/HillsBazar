@@ -17,7 +17,7 @@
             android:layout_height="250dp"
             android:foregroundGravity="center"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="first.json"
+            app:lottie_fileName="fruits.json"
             app:lottie_loop="true" />
 
         <TextView
